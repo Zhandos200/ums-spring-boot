@@ -3,6 +3,8 @@ package com.yourorg.ums.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "courses")
@@ -18,5 +20,7 @@ public class Course {
 
     private String title;
     private LocalDate startDate;
-    private int enrolledCount;
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<Enrollment> enrollments = new ArrayList<>();
+
 }

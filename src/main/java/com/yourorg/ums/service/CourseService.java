@@ -30,7 +30,6 @@ public class CourseService {
         return courseRepository.findById(id).map(course -> {
             course.setTitle(updatedCourse.getTitle());
             course.setStartDate(updatedCourse.getStartDate());
-            course.setEnrolledCount(updatedCourse.getEnrolledCount());
             return courseRepository.save(course);
         }).orElseThrow(() -> new RuntimeException("Course not found"));
     }

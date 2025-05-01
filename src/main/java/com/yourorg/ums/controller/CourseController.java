@@ -22,9 +22,15 @@ public class CourseController {
     @GetMapping
     public ResponseEntity<List<CourseDTO>> getAllCourses() {
         List<CourseDTO> courses = courseService.getAllCourses()
-                .stream()
-                .map(courseMapper::toDTO)
-                .collect(Collectors.toList());
+            .stream()
+            .map(course -> {
+                CourseDTO dto = courseMapper.toDTO(course);
+                dto.setEnrolledCount(
+                    course.getEnrollments() != null ? course.getEnrollments().size() : 0
+                );
+                return dto;
+            })
+            .collect(Collectors.toList());
         return ResponseEntity.ok(courses);
     }
 
